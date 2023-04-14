@@ -39,7 +39,10 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
         >
           Airbnb your home
         </div>
-        <div className="flex cursor-pointer flex-row items-center gap-3 rounded-full border-[1px] border-neutral-200 p-4 transition hover:shadow-md md:px-2 md:py-1">
+        <div
+          onClick={toggleOpen}
+          className="flex cursor-pointer flex-row items-center gap-3 rounded-full border-[1px] border-neutral-200 p-4 transition hover:shadow-md md:px-2 md:py-1"
+        >
           <AiOutlineMenu />
           <div className="hidden md:block">
             <Avatar src={currentUser?.image} />
