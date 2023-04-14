@@ -12,14 +12,14 @@ interface ModalProps {
   actionLabel: string;
   disabled?: boolean;
   secondaryAction?: () => void;
-  secondaryActionlabel?: string;
+  secondaryActionLabel?: string;
 }
 
 const Modal: FC<ModalProps> = ({
   actionLabel,
   onClose,
   onSubmit,
-  secondaryActionlabel,
+  secondaryActionLabel,
   body,
   disabled,
   footer,
@@ -87,10 +87,10 @@ const Modal: FC<ModalProps> = ({
                 <div className="relative flex-auto p-6">{body}</div>
                 <div className="flex flex-col gap-2 p-6">
                   <div className="flex w-full flex-row items-center gap-4">
-                    {secondaryAction && secondaryActionlabel && (
+                    {secondaryAction && secondaryActionLabel && (
                       <Button
                         disabled={disabled}
-                        label={secondaryActionlabel}
+                        label={secondaryActionLabel}
                         onClick={handleSecondaryAction}
                         outline
                       />

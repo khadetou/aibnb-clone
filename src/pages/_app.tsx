@@ -1,6 +1,9 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import "leaflet/dist/leaflet.css";
 
 import { api } from "@/utils/api";
 
