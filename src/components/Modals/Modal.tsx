@@ -12,7 +12,7 @@ interface ModalProps {
   actionLabel: string;
   disabled?: boolean;
   secondaryAction?: () => void;
-  secondaryActionlabel: string;
+  secondaryActionlabel?: string;
 }
 
 const Modal: FC<ModalProps> = ({
