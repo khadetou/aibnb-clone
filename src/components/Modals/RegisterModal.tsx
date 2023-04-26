@@ -14,27 +14,55 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+// import {toast} from "react-hot-toast";
+import { api } from "@/utils/api";
+
+export type RegisterModalType = {
+  email: string;
+  password: string;
+  name: string;
+};
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
+  const registerFormSchema = z.object({
+    name: z.string().min(3),
+    email: z.string(),
+    password: z.string(),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+    reset,
+    control,
+  } = useForm<RegisterModalType>({ resolver: zodResolver(registerFormSchema) });
+
+  const registerRoute = api.useContext().register;
+
+  const createUser = api.register.signUp.useMutation({
+    onSuccess: () => {
+      toast.success("User registered!");
+      registerModal.onClose();
+      loginModal.onOpen();
+      reset();
+    },
+    onError: (error) => {
+      toast.error("Registration failed!");
+      console.log(error);
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<RegisterModalType> = (data) => {
     setIsLoading(true);
-
+    createUser.mutate(data);
+    setIsLoading(false);
     // axios.post('/api/register', data)
     // .then(() => {
     //   toast.success('Registered!');
@@ -125,6 +153,8 @@ const RegisterModal = () => {
       </div>
     </div>
   );
+
+  console.log(errors);
 
   return (
     <Modal

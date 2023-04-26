@@ -1,15 +1,17 @@
 import { FC } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
+import { RegisterModalType } from "../Modals/RegisterModal";
 
+type IdType = "name" | "email" | "password";
 interface InputProps {
-  id: string;
+  id: IdType;
   label: string;
   type?: string;
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<RegisterModalType>;
   errors: FieldErrors;
 }
 const Input: FC<InputProps> = ({

@@ -11,7 +11,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "@/env.mjs";
 import { prisma } from "@/server/db";
 import bcrypt from "bcrypt";
-import { TRPCError } from "@trpc/server";
+
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -53,6 +53,14 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
     }),
     GithubProvider({
       clientId: env.GITHUB_CLIENT_ID,
@@ -75,13 +83,13 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !user?.hashedPassword) {
+        if (!user || !user?.password) {
           throw new Error("Invalid credentials");
         }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.hashedPassword
+          user.password
         );
 
         if (!isCorrectPassword) {
@@ -100,6 +108,14 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  pages: {
+    signIn: "/",
+  },
+  debug: process.env.NODE_ENV === "development",
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 /**

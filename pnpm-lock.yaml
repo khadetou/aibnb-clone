@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@hookform/resolvers':
+    specifier: ^3.0.1
+    version: 3.0.1(react-hook-form@7.43.9)
   '@next-auth/prisma-adapter':
     specifier: ^1.0.5
     version: 1.0.5(@prisma/client@4.12.0)(next-auth@4.21.0)
@@ -355,6 +358,14 @@ packages:
     resolution: {integrity: sha512-02vxFDuvuVPs22iJICacezYJyf7zwwOCWkPNkWNBr1U0Qt1cKFYzWvxts0AmqcOQGwt/3KJWcWIgtbUU38keyw==}
     dependencies:
       '@floating-ui/core': 1.2.6
+    dev: false
+
+  /@hookform/resolvers@3.0.1(react-hook-form@7.43.9):
+    resolution: {integrity: sha512-n5oOt0cLw9mQNW3/k9zWaPsNWQcc0k6Jpc7XUrg2Q/AqqsHp3IVa1juqHCxczXI6uXHBa69ILc4pdtsRGyuzsw==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.9(react@18.2.0)
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:
